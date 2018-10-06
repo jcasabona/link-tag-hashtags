@@ -19,6 +19,11 @@
         return preg_replace( '/(?<!\S)#([0-9a-zA-Z]+)/', '[#$1](/$1)', $text );
     }
 
-    //@TODO: Make this a filter on content. 
+    //@TODO: Make this a filter on content. with add_filter( 'the_content', 'lth_linkify_hashtags' )
 
-    //@TODO: Make a function to search for tag, or create one if one doesn't exist.
+    function lth_find_tags( $tags ) {
+        $query = new WP_Query( array( 'tag_slug__in' => $tags );
+
+        // If Tags are not found, create them: 
+        // wp_insert_term( )
+    }
