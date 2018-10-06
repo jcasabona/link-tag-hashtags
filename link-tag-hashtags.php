@@ -33,4 +33,8 @@
         }
     }
 
-    //@TODO: Add posts to new tags!
+    function lth_add_post_tags( $post_id, $tags ) {
+        wp_set_post_tags( $post_id, $tags, true );
+    }
+
+    add_filter( 'save_posts', 'lth_add_post_tags', 2 );
