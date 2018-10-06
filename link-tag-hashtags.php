@@ -18,15 +18,19 @@
     function lth_linkify_hashtags ( $text ){
         $lth_tags_array = array();
         preg_match_all( '/(?<!\S)#([0-9a-zA-Z]+)/', $text, $lth_tags_array );
-        lth_create_tags( $lth_tags_array );
+        lth_create_tags( $lth_tags_array[1] );
 
-        return preg_replace( '/(?<!\S)#([0-9a-zA-Z]+)/', '<a href="'. get_term_link('$1') .'>#$1</a>', $text );
+        return preg_replace( '/(?<!\S)#([0-9a-zA-Z]+)/', '<a href="http://joecasabona.local/tag/$1">#$1</a>', $text );
     }
 
-    //@TODO: Make this a filter on content. with add_filter( 'the_content', 'lth_linkify_hashtags' )
+    //@TODO: don't hardcode the dang link.
 
-    function lth_create_tags( $tags, $tax = 'tag' ) {
+    add_filter( 'the_content', 'lth_linkify_hashtags' );
+
+    function lth_create_tags( $tags, $tax = 'post_tag' ) {
         foreach( $tags as $tag ) {
             wp_insert_term( $tag, $tax );
         }
     }
+
+    //@TODO: Add posts to new tags!
